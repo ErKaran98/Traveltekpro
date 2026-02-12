@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:traveltekpro_task_karan/features/home/view/home_screen.dart';
 import '../controller/bottom_nav_controller.dart';
@@ -8,8 +10,6 @@ class BottomNavView extends GetView<BottomNavController> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
     final pages = [
       const HomeScreen(),
       const Center(child: Text("My Trips")),
@@ -26,82 +26,69 @@ class BottomNavView extends GetView<BottomNavController> {
       }),
 
       bottomNavigationBar: SizedBox(
-        height: width * 0.22,
+        height: 72.h,
 
         child: Stack(
+          clipBehavior: Clip.none,
           alignment: Alignment.topCenter,
           children: [
-
             Container(
-              margin: EdgeInsets.only(top: width * 0.08),
-
-              padding: EdgeInsets.symmetric(
-                horizontal: width * 0.08,
-              ),
+              height: 68.h,
+              padding: EdgeInsets.symmetric(horizontal: 29.w),
 
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(28),
-                ),
 
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.08),
-                    blurRadius: 20,
+                    blurRadius: 20.r,
                     offset: const Offset(0, -4),
                   ),
                 ],
               ),
 
               child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   navItem(
-                    icon: Icons.home,
+                    iconPath: "assets/icons/home.svg",
                     title: "Home",
                     index: 0,
                   ),
 
                   navItem(
-                    icon: Icons.confirmation_num_outlined,
+                    iconPath: "assets/icons/Frame.svg",
                     title: "My Trips",
                     index: 1,
                   ),
 
-                  SizedBox(width: width * 0.15),
+                  SizedBox(width: 20.w),
 
                   navItem(
-                    icon: Icons.favorite_border,
+                    iconPath: "assets/icons/heart.svg",
                     title: "Wishlist",
                     index: 3,
                   ),
 
                   navItem(
-                    icon: Icons.person_outline,
+                    iconPath: "assets/icons/user.svg",
                     title: "Account",
                     index: 4,
                   ),
                 ],
               ),
             ),
-
-
-            GestureDetector(
-              onTap: () => controller.changeIndex(2),
-              child: Container(
-                height: width * 0.18,
-                width: width * 0.18,
-
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle),
-
+            Positioned(
+              top: -86.h,
+              left: 90.w,
+              child: GestureDetector(
+                onTap: () => controller.changeIndex(2),
                 child: Center(
                   child: Image.asset(
                     "assets/images/centerButton.png",
-                    fit: BoxFit.contain,
+                    height: 180.h,
+                    width: 180.w,
                   ),
                 ),
               ),
@@ -113,38 +100,38 @@ class BottomNavView extends GetView<BottomNavController> {
   }
 
   Widget navItem({
-    required IconData icon,
+    required String iconPath,
     required String title,
     required int index,
   }) {
-    final isSelected =
-        controller.selectedIndex.value == index;
+    final isSelected = controller.selectedIndex.value == index;
 
     return GestureDetector(
       onTap: () => controller.changeIndex(index),
 
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SvgPicture.asset(
+            iconPath,
+            height: 24.h,
+            width: 24.w,
 
-          Icon(
-            icon,
-            size: 26,
-            color: isSelected
-                ? const Color(0xFF6A5AE0)
-                : Colors.grey,
+            // 👇 Color change on selection
+            colorFilter: ColorFilter.mode(
+              isSelected ? const Color(0xFF6A5AE0) : Colors.grey,
+              BlendMode.srcIn,
+            ),
           ),
 
-          const SizedBox(height: 4),
+          SizedBox(height: 4.h),
 
           Text(
             title,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
-              color: isSelected
-                  ? const Color(0xFF6A5AE0)
-                  : Colors.grey,
+              color: isSelected ? const Color(0xFF6A5AE0) : Colors.grey,
             ),
           ),
         ],

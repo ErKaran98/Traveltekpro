@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:traveltekpro_task_karan/features/home/widgets/category_card.dart';
+import 'package:traveltekpro_task_karan/features/home/widgets/info_tile.dart';
 import '../controller/home_controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -7,259 +10,149 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
 
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              height: height * 0.22,
-              width: double.infinity,
-
+              height: 100.h,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/header.png"),
                   fit: BoxFit.cover,
-                  alignment: Alignment(0.7, -0),
                 ),
               ),
             ),
 
             Transform.translate(
-              offset: Offset(0, -height * 0.08),
-
+              offset: Offset(0, 0),
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(width * 0.05),
-
+                padding: EdgeInsets.all(14.w),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(24.r),
+                    bottomRight: Radius.circular(24.r),
+                  ),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.08),
-                      blurRadius: 20,
+                      blurRadius: 20.r,
                     ),
                   ],
                 ),
-
                 child: Column(
                   children: [
                     SizedBox(
-                      height: height * 0.10,
-
-                      child: Obx(() {
-                        return ListView(
+                      height: 84.h,
+                      width: double.infinity,
+                      child: Obx(
+                        () => ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            categoryItem(
-                              context,
-                              0,
-                              "Hotels",
-                              "assets/icons/hotel.png",
+                            CategoryItem(
+                              title: "Hotels",
+                              iconPath: "assets/icons/hotel.svg",
+                              isSelected:
+                                  controller.selectedCategory.value == 0,
+                              onTap: () => controller.changeCategory(0),
                             ),
 
-                            categoryItem(
-                              context,
-                              1,
-                              "Flights",
-                              "assets/icons/flight.png",
+                            SizedBox(width: 10.w),
+
+                            CategoryItem(
+                              title: "Plane",
+                              iconPath: "assets/icons/plane.svg",
+                              isSelected:
+                                  controller.selectedCategory.value == 1,
+                              onTap: () => controller.changeCategory(1),
                             ),
 
-                            categoryItem(
-                              context,
-                              2,
-                              "Life\nExperience",
-                              "assets/icons/map.png",
+                            SizedBox(width: 10.w),
+
+                            CategoryItem(
+                              title: "Life\nExperience",
+                              iconPath: "assets/icons/map.svg",
+                              isSelected:
+                                  controller.selectedCategory.value == 2,
+                              onTap: () => controller.changeCategory(2),
                             ),
 
-                            categoryItem(
-                              context,
-                              3,
-                              "Cars",
-                              "assets/icons/car.png",
+                            SizedBox(width: 10.w),
+
+                            CategoryItem(
+                              title: "Cars",
+                              iconPath: "assets/icons/cars.svg",
+                              isSelected:
+                                  controller.selectedCategory.value == 3,
+                              onTap: () => controller.changeCategory(3),
                             ),
 
-                            categoryItem(
-                              context,
-                              4,
-                              "Cruises",
-                              "assets/icons/ship.png",
+                            SizedBox(width: 10.w),
+
+                            CategoryItem(
+                              title: "Cruises",
+                              iconPath: "assets/icons/shipe.svg",
+                              isSelected:
+                                  controller.selectedCategory.value == 4,
+                              onTap: () => controller.changeCategory(4),
                             ),
                           ],
-                        );
-                      }),
+                        ),
+                      ),
                     ),
-
-                    SizedBox(height: height * 0.03),
-
-                    inputCard(
+                    SizedBox(height: 10.h),
+                    InfoTile(
                       icon: Icons.location_on_outlined,
-                      title: "Destination",
-                      value: "Dubai, United Arab Emirates",
+                      title: 'Destination',
+                      valur: "Dubai,United Arab Emirates",
+                      textColors: Colors.grey.shade600,
                     ),
-
-                    SizedBox(height: height * 0.02),
-
-                    inputCard(
-                      icon: Icons.calendar_today_outlined,
-                      title: "Date",
-                      value: "1 July - 3 July",
+                    SizedBox(height: 10.h),
+                    InfoTile(
+                      icon: Icons.calendar_month_outlined,
+                      title: 'Date',
+                      valur: "1 July - 3 July",
                     ),
-
-                    SizedBox(height: height * 0.02),
-                    inputCard(
+                    SizedBox(height: 10.h),
+                    InfoTile(
                       icon: Icons.person_outline,
-                      title: "Travelers",
-                      value: "2 Travelers - 1 room",
+                      title: 'Travellers',
+                      valur: "2 Travellers - 1 room",
                     ),
-
-                    SizedBox(height: height * 0.03),
-
+                    SizedBox(height: 10.h),
                     Container(
-                      height: height * 0.07,
+                      padding: EdgeInsets.all(12.w),
+                      height: 56.h,
                       width: double.infinity,
-
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                          colors: [Color(0xFF5ED0C4), Color(0xFF6A5AE0)],
+                          colors: [Color(0xff13C2C2), Color(0xff5E29CD)],
                         ),
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius: BorderRadius.circular(16.r),
                       ),
-
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          "Search",
+                          'Search',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
                     ),
+                    SizedBox(height: 8.h),
                   ],
                 ),
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget categoryItem(
-    BuildContext context,
-    int index,
-    String title,
-    String icon,
-  ) {
-    final width = MediaQuery.of(context).size.width;
-
-    final isSelected = controller.selectedCategory.value == index;
-
-    return GestureDetector(
-      onTap: () => controller.changeCategory(index),
-
-      child: Container(
-        width: width * 0.22,
-        margin: EdgeInsets.only(right: width * 0.03),
-
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFE8F0FE) : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected ? Colors.blue : Colors.grey.shade300,
-          ),
-        ),
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(icon, width: width * 0.08),
-
-            SizedBox(height: width * 0.02),
-
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget inputCard({
-    required IconData icon,
-    required String title,
-    required String value,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: Colors.grey.shade300,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-
-      child: Row(
-        children: [
-
-          /// Icon
-          Icon(
-            icon,
-            size: 26,
-            color: Colors.black87,
-          ),
-
-          const SizedBox(width: 14),
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
-              children: [
-
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                  ),
-                ),
-
-                const SizedBox(height: 4),
-
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

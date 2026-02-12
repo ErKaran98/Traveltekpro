@@ -79,9 +79,8 @@ State management implemented using GetX:
 
 ⸻
 
-📱 Screen Recording
-
-https://drive.google.com/file/d/1mRwvCwL53jRiErA94frbMthPoJ0RBgeQ/view?usp=sharing
+📱 Screen Recording                 
+https://drive.google.com/file/d/1oZy40wKX98QAM4U2O_9b_KdT0GkOydvt/view?usp=sharing
 
 ⸻
 
@@ -94,5 +93,5 @@ https://drive.google.com/file/d/1mRwvCwL53jRiErA94frbMthPoJ0RBgeQ/view?usp=shari
 
 👨‍💻 Developed By
 
-Karan Rana
+Karan Rana            
 Flutter Developer
